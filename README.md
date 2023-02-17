@@ -50,7 +50,7 @@ for _ in range(1000):
     observation, reward, done, truncated, info = env.step(a)
     env.render()
 ```
-where `mode` has to be chosen among `2, 3, 4, 6, 8`.
+where `mode`, the number of operating floors, has to be chosen among `2, 3, 4, 6, 8`.
 
 ## 2. Training/Evaluation
 We provide a comprehensible interface for applying algorithms to the lifter simulation environments.

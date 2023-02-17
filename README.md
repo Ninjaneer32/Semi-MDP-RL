@@ -1,4 +1,4 @@
-FAB Lifter Operation using Soft Actor-Critic
+FAB Lifter Operation using Semi-MDP-RL
 ====================================================
 
 This repository includes a PyTorch implementation of **deep reinforcement learning methods for semi-MDP** which is used to control FAB lifters.

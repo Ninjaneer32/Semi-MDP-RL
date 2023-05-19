@@ -170,11 +170,11 @@ class MPCController:
         for k in range(self._K):
             """
             equivalent expression for bilinear product using new matrix variable Q_k
-            The product x * y of two binary variables can be written as a new binary variable z which satisfies
-            z >= 0
-            z >= x + y - 1
-            z <= x
-            z <= y
+            The product x * y of two binary variables can be written as a new binary (but okay to set continuous) variable z which satisfies
+            z >= 0,
+            z >= x + y - 1,
+            z <= x,
+            z <= y.
             """
             Qk = m.addVars(self._actions, self._points, vtype=GRB.CONTINUOUS, name='Q{}'.format(k))
             m.addConstrs((Qk[a, p] <= A[a, k] for a in self._actions for p in self._points),
@@ -186,13 +186,13 @@ class MPCController:
                 name='QAP{}'.format(k))
 
             """
-            new variables R_k & S_k to handle the capacity of the conveyor belts
-            Briefly speaking, the equation of the form z = min{x, y} is transformed to
-            z + r = x
-            z + s = y
-            r, s >= 0
-            r * s =0
-            by introducing new variables r & s. However, the result involves an bilinear constraint r * s = 0.
+            new variables S_k to handle the capacity of the conveyor belts
+            Briefly speaking, the equation of the form z = min{x, y} is transformed to the linear constraints
+            z <= x,
+            z <= y,
+            z >= x + (l2 - u1) * s,
+            z >= y + (l1 - u2) * (1 - s),
+            by introducing a new binary variable s.
             """
             S = m.addVars(self._conveyors, vtype=GRB.BINARY, name='S{}'.format(k))
             # execution time of the action at step k

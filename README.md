@@ -83,7 +83,7 @@ $ python test.py --env=LifterPOD-v0 --mode=2 --pth=[path-to-log-directory]
 ```
 
 ## 5. Baseline Controller
-As a baseline, MPC controller is implemented and located under directory `mpc`.
+As a baseline, MPC controller is implemented and located under directory `mpc`. The concise description of the baseline is given at [`mpc/README.md`][mpclink]
  To run the baseline, you need [gurobipy][gurobipylink] with full support license. To obtain and set up Gurobi license, please refer to the instruction at [Gurobi][gurobilink].
 
 Running the controller is again straightforward; to run the MPC controller with horizon=3, run
@@ -99,3 +99,4 @@ $ python runner.py --mode=2 --steps=3 --file_count=0
 [pygamelink]: https://github.com/pygame/pygame/
 [gurobipylink]: https://pypi.org/project/gurobipy/
 [gurobilink]: https://www.gurobi.com/documentation/9.5/quickstart_mac/retrieving_and_setting_up_.html#section:RetrieveLicense
+[mpclink]: https://github.com/CORE-SNU/Semi-MDP-RL/mpc/

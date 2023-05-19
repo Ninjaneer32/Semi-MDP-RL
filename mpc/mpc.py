@@ -194,8 +194,7 @@ class MPCController:
             r * s =0
             by introducing new variables r & s. However, the result involves an bilinear constraint r * s = 0.
             """
-            R = m.addVars(self._conveyors, vtype=GRB.CONTINUOUS, name='R{}'.format(k))
-            S = m.addVars(self._conveyors, vtype=GRB.CONTINUOUS, name='S{}'.format(k))
+            S = m.addVars(self._conveyors, vtype=GRB.BINARY, name='S{}'.format(k))
             # execution time of the action at step k
             tk = m.addVar(lb=0., ub=float('inf'), obj=0., vtype=GRB.CONTINUOUS, name='t{}'.format(k), column=None)
             m.addConstr(
@@ -203,13 +202,16 @@ class MPCController:
                 name='time definition{}'.format(k))
             ts.append(tk)
 
-            # modified lot arrival equation using new variables R_k & S_k
-            m.addConstrs((N[c, k + 1] + R[c] == N[c, k] + tk * self._params[c] - sum(
+            # modified lot arrival equation using new variables S_k
+            m.addConstrs((N[c, k + 1] <= N[c, k] + tk * self._params[c] - sum(
                 self._L[c][a] * A[a, k] for a in self._actions) for c in self._conveyors),
-                         name='N-eq{}'.format(k))
-            m.addConstrs((N[c, k + 1] + S[c] == self._capacities[c] for c in self._conveyors),
-                         name='N-ineq{}'.format(k))
-            m.addConstrs((R[c] * S[c] == 0 for c in self._conveyors), name='bilinear{}'.format(k))
+                name='N-ineq1-{}'.format(k))
+            m.addConstrs((N[c, k + 1] <= self._capacities[c] for c in self._conveyors),
+                    name='N-ineq2-{}'.format(k))
+            m.addConstrs((N[c, k + 1] >= self._capacities[c] * S[c] for c in self._conveyors), name='N-ineq3-{}'.format(k))
+            m.addConstrs((N[c, k + 1] >= N[c, k] + tk * self._params[c] - sum(
+                self._L[c][a] * A[a, k] for a in self._actions) - self._t_max * self._lambda_max * S[c]
+                for c in self._conveyors), name='N-ineq4-{}'.format(k))
 
             # constraint N^c_k >= L^c_{A_k}: in order to load a lot from c, there must be at least 1 lot in c. 
             m.addConstrs((N[c, k] >= sum(self._L[c][a] * A[a, k] for a in self._actions) for c in

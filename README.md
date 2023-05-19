@@ -99,4 +99,4 @@ $ python runner.py --mode=2 --steps=3 --file_count=0
 [pygamelink]: https://github.com/pygame/pygame/
 [gurobipylink]: https://pypi.org/project/gurobipy/
 [gurobilink]: https://www.gurobi.com/documentation/9.5/quickstart_mac/retrieving_and_setting_up_.html#section:RetrieveLicense
-[mpclink]: https://github.com/CORE-SNU/Semi-MDP-RL/mpc/
+[mpclink]: https://github.com/CORE-SNU/Semi-MDP-RL/tree/main/mpc/

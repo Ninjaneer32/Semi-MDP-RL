@@ -192,7 +192,7 @@ class MPCController:
             z <= y,
             z >= x + (l2 - u1) * s,
             z >= y + (l1 - u2) * (1 - s),
-            by introducing a new binary variable s.
+            by introducing a new binary variable s. (Here we assume that the bounds l1 <= x <= u1 & l2 <= y <= u2 are known.)
             """
             S = m.addVars(self._conveyors, vtype=GRB.BINARY, name='S{}'.format(k))
             # execution time of the action at step k

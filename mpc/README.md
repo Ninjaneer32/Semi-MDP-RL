@@ -168,9 +168,8 @@ where $\tau_{\max} = \max_{a, p} [\mathscr{T}]_{a, p}$ is the maximum execution 
 & N_{k+1} \succeq N_k + \text{tr}(\mathscr{T}^\top Q_k) \hat{\lambda} -  \textbf{L} A_k - \tau_{\max} \bar{\lambda} S_k, \qquad k = 0, \ldots, K - 1.
 \end{aligned}
 ```
-Intuitively, each $[S_k]_c$ serves as the indicator which takes $1$ when the capacity constraint is met in $(k+1)$-th step and takes $0$ when not. Indeed, it is easily checkable that $[S_k]_c = 1$ forces $N_{k+1}$ to satisfy $[N_{k+1}]_c = [\textbf{N}]_c$, and vice versa.
+Intuitively, each $[ S_k ]\_c$ serves as the indicator which takes $1$ when the capacity constraint is met in $(k+1)$-th step and takes $0$ when not. Indeed, it is easily checkable that $\[S_k\]\_c = 1$ forces $N_{k+1}$ to satisfy $\[N_{k+1}\]\_c = \[\textbf{N}\]\_c$, and vice versa.
 Combining these constraints, we ultimately get (1).
-
 
 - The following constraints imply that the lifter can not load a lot from the empty queue:
 ```math
